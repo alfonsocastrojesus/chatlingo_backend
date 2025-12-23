@@ -4,15 +4,10 @@ import express from "express";
 import dotenv from "dotenv";
 import { OpenAI } from "openai";
 import cors from "cors";
-
-// cargar configuracion de API KEY
 dotenv.config();
-app.use(cors());
-app.use(cors({ origin: "taupe-beignet-6b8275.netlify.app" }));
-
-//  cargar express
-
 const app = express();
+app.use(cors({ origin: "https://taupe-beignet-6b8275.netlify.app" }));
+
 const PORT = process.env.PORT || 3000;
 
 // servir frontend
