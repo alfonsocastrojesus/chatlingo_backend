@@ -1,5 +1,5 @@
 // importar dependencias
-
+import rateLimit from "express-rate-limit";
 import express from "express";
 import dotenv from "dotenv";
 import { OpenAI } from "openai";
@@ -17,7 +17,14 @@ app.use("/", express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// instancia OpenAI y API KEY
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 10,
+  message: {
+    error: "Maximum limit reached, wait 60 seconds.",
+  },
+});
+app.use("/api/", limiter);
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
